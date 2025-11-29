@@ -2,6 +2,7 @@
   import { browser } from '$app/environment';
   import { PUBLIC_SUPABASE_PUBLISHABLE_KEY, PUBLIC_SUPABASE_URL } from '$env/static/public';
   import { createBrowserClient } from '@supabase/ssr';
+  import Funny from '$lib/funny/funny.svelte';
 
   export let data: { session: any };
 
@@ -79,7 +80,7 @@
           <span class="relative">Go to Home Page</span>
         </button>
       {/if}
-
+        <Funny />
     </div>
   </div>
 </div>

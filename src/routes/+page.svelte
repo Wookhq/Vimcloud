@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import { PUBLIC_SUPABASE_PUBLISHABLE_KEY, PUBLIC_SUPABASE_URL } from '$env/static/public';
   import { createBrowserClient } from '@supabase/ssr';
+  import Funny from '$lib/funny/funny.svelte';
 
   export let data: { session: any };
 
@@ -99,6 +100,7 @@
         </button>
 
       {/if}
+        <Funny />
     </div>
   </div>
 </div>
