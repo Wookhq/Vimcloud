@@ -16,7 +16,7 @@
     });
 
     const result = await res.json();
-    status = result.success ? `upload success: ${result.path}` : `upload failed: ${result.error}`;
+    status = result.success ? `upload success: ${result.path}, temporary URL: ${result.temporaryUrl}` : `upload failed: ${result.error}`;
   }
 </script>
 
