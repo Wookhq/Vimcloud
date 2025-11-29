@@ -21,7 +21,7 @@
     location.reload();
   }
     const homePage = () => {
-    location.href = '/homePage';
+    location.href = '/';
   };
 </script>
 
