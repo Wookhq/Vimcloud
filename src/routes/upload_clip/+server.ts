@@ -31,11 +31,26 @@ export const POST: RequestHandler = async ({ request }) => {
       .from('Agartha') // FIXED!!!
       .upload(filePath, file, { upsert: true });
 
+
+    async function generateTemporaryUrl(bucketName: string, filePath: string, expiresInSeconds: number) {
+      const { data, error } = await supabase.storage
+        .from(bucketName)
+        .createSignedUrl(filePath, expiresInSeconds);
+
+      if (error) {
+        console.error('Error generating signed URL:', error.message);
+        return null;
+      }
+
+      return data.signedUrl;
+    }
+
+    const tempurl = await generateTemporaryUrl('Agartha', filePath, 60 * 60); // 1 hour
     if (error) {
       return new Response(JSON.stringify({ error: error.message }), { status: 500 });
     }
 
-    return new Response(JSON.stringify({ success: true, path: filePath }), { status: 200 });
+    return new Response(JSON.stringify({ success: true, path: filePath, temporaryUrl: tempurl }), { status: 200 });
   } catch (err) {
     return new Response(JSON.stringify({ error: (err as Error).message }), { status: 500 });
   }
