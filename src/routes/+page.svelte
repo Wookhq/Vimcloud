@@ -35,6 +35,8 @@
   <p>Email: {session.user.email}</p>
   <p>User name : {session.user.user_metadata.name}</p>
   <button on:click={signOut}>Sign out</button>
+  <p>DEBUG INFO (do not share pls, sharing this will grant full control of your account)</p>
+  <p>{session.access_token}</p>
 {:else}
   <h1>Sign in</h1>
   <button on:click={signInDiscord}>Sign in with Discord</button>
