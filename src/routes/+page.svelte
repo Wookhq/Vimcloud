@@ -33,6 +33,7 @@
   <h2>Signed in</h2>
   <p>Id: {session.user.id}</p>
   <p>Email: {session.user.email}</p>
+  <p>User name : {session.user.user_metadata.name}</p>
   <button on:click={signOut}>Sign out</button>
 {:else}
   <h1>Sign in</h1>
