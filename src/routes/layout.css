@@ -1,1 +1,11 @@
 @import 'tailwindcss';
+
+@font-face {
+    font-family: 'Satoshi Variable';
+    font-style: normal;
+    font-weight: 700;
+    font-display: block;
+    src: url(https://design.penpot.app/assets/by-id/523e6552-2cdd-411f-8477-57661ebae1d5) format('woff');
+}
+
+@theme {  --font-display: "Oswald", sans-serif; }
