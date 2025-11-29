@@ -1,24 +1,13 @@
 {
-  "name": "vimcloud",
-  "version": "1.0.0",
-  "description": "yay",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Wookhq/Vimcloud.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/Wookhq/Vimcloud/issues"
-  },
-  "homepage": "https://github.com/Wookhq/Vimcloud#readme",
+  "name": "hono",
+  "type": "module",
   "dependencies": {
     "hono": "^4.10.7"
-  }
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "tsx": "^4.7.1",
+    "typescript": "^5.8.3"
+  },
+  "version": "dev"
 }
