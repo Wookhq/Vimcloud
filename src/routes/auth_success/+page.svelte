@@ -1,11 +1,13 @@
 <script lang="ts">
+  // tell Svelte this component uses runes syntax
+
   import { browser } from '$app/environment';
   import { PUBLIC_SUPABASE_PUBLISHABLE_KEY, PUBLIC_SUPABASE_URL } from '$env/static/public';
   import { createBrowserClient } from '@supabase/ssr';
   import Funny from '$lib/funny/funny.svelte';
+  import { page } from '$app/stores';
 
-  export let data: { session: any };
-
+  // reactive state for supabase client & session
   let supabase: any = undefined;
   if (browser) {
     supabase = createBrowserClient(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_PUBLISHABLE_KEY, {
@@ -13,14 +15,19 @@
     });
   }
 
-  const session = data.session;
+  // derive session (if any) from page data
+  let session = $page.data.session;
+
+  // optionally get refreshToken if session exists
+  let refreshToken = session?.refresh_token;
 
   async function signOut() {
     if (!supabase) return;
     await supabase.auth.signOut();
     location.reload();
   }
-    const homePage = () => {
+
+  const homePage = () => {
     location.href = '/';
   };
 </script>
@@ -35,7 +42,7 @@
 
       {#if session?.user}
         <p class="text-white text-2xl mb-4">
-          Done! now please paste this into vimal and continue your action.
+          Done! now please paste this into vimal and continue your action. [DO NOT SHARE.]
         </p>
 
         <div class="relative max-w-xs mx-auto mt-4 w-[320px]">
@@ -47,7 +54,7 @@
             </div>
             <div class="overflow-x-auto">
               <pre id="code" class="text-gray-300 text-sm">
-<code>{session.access_token}</code>
+<code>{refreshToken}</code>
               </pre>
             </div>
           </div>
@@ -80,7 +87,8 @@
           <span class="relative">Go to Home Page</span>
         </button>
       {/if}
-        <Funny />
+
+      <Funny />
     </div>
   </div>
 </div>
