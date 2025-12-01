@@ -3,6 +3,7 @@
   import { PUBLIC_SUPABASE_PUBLISHABLE_KEY, PUBLIC_SUPABASE_URL } from '$env/static/public';
   import { createBrowserClient } from '@supabase/ssr';
   import Funny from '$lib/funny/funny.svelte';
+  import PageTemplate from '$lib/page_template/page_template.svelte';
 
   export let data: { session: any };
 
@@ -36,14 +37,7 @@
   };
 </script>
 
-<div class="bg-[url('/kivotos.jpg')] bg-cover bg-center h-screen w-full flex items-center justify-center">
-  <img src="/Vimal.svg" alt="Vimal Cloud Logo" class="absolute top-8 left-8 w-32 h-auto" />
-
-  <div class="relative w-full h-screen flex items-center justify-center">
-    <div class="w-[426px] h-[190px] flex flex-col items-center justify-center bg-opacity-75">
-
-      <img src="/Vimal_cloud.svg" alt="Vimal Cloud Logo" class="mb-4 w-100 h-auto" />
-
+<PageTemplate>
       {#if session?.user}
         <p class="text-white text-2xl mb-4 font-mono">
           Signed in as {session.user.email ?? session.user.id}
@@ -100,7 +94,4 @@
         </button>
 
       {/if}
-        <Funny />
-    </div>
-  </div>
-</div>
+</PageTemplate>

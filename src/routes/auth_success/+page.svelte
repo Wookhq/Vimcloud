@@ -1,11 +1,10 @@
 <script lang="ts">
-  // tell Svelte this component uses runes syntax
-
   import { browser } from '$app/environment';
   import { PUBLIC_SUPABASE_PUBLISHABLE_KEY, PUBLIC_SUPABASE_URL } from '$env/static/public';
   import { createBrowserClient } from '@supabase/ssr';
   import Funny from '$lib/funny/funny.svelte';
   import { page } from '$app/stores';
+  import PageTemplate from '$lib/page_template/page_template.svelte';
 
   // reactive state for supabase client & session
   let supabase: any = undefined;
@@ -32,14 +31,7 @@
   };
 </script>
 
-<div class="bg-[url('/kivotos.jpg')] bg-cover bg-center h-screen w-full flex items-center justify-center">
-  <img src="/Vimal.svg" alt="Vimal Cloud Logo" class="absolute top-8 left-8 w-32 h-auto" />
-
-  <div class="relative w-full h-screen flex items-center justify-center">
-    <div class="w-[426px] h-[190px] flex flex-col items-center justify-center bg-opacity-75">
-
-      <img src="/Vimal_cloud.svg" alt="Vimal Cloud Logo" class="mb-4 w-full h-auto" />
-
+<PageTemplate>
       {#if session?.user}
         <p class="text-white text-2xl mb-4">
           Done! now please paste this into vimal and continue your action. [DO NOT SHARE.]
@@ -87,8 +79,4 @@
           <span class="relative">Go to Home Page</span>
         </button>
       {/if}
-
-      <Funny />
-    </div>
-  </div>
-</div>
+</PageTemplate>
