@@ -1,3 +1,5 @@
+
+
 <script lang="ts">
   import { browser } from '$app/environment';
   import { PUBLIC_SUPABASE_PUBLISHABLE_KEY, PUBLIC_SUPABASE_URL } from '$env/static/public';
@@ -5,6 +7,8 @@
   import Funny from '$lib/funny/funny.svelte';
   import { page } from '$app/stores';
   import PageTemplate from '$lib/page_template/page_template.svelte';
+  import Card from '$lib/components/ui/Card.svelte';
+  import Button from '$lib/components/ui/Button.svelte';
 
   // reactive state for supabase client & session
   let supabase: any = undefined;
@@ -32,22 +36,27 @@
 </script>
 
 <PageTemplate>
+  <Card class="flex flex-col items-center text-center space-y-6 max-w-lg">
       {#if session?.user}
-        <p class="text-white text-2xl mb-4">
-          Done! now please paste this into vimal and continue your action. [DO NOT SHARE.]
-        </p>
+        <div class="space-y-4 w-full">
+          <div class="h-16 w-16 mx-auto rounded-full bg-green-500/20 flex items-center justify-center text-green-400">
+             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+          </div>
+          
+          <h2 class="text-2xl font-bold text-white">Authentication Successful</h2>
+          
+          <p class="text-gray-300">
+            Paste this code into Vimal to continue. 
+            <span class="block text-red-400 text-sm font-bold mt-1 uppercase tracking-wider">Do not share this token</span>
+          </p>
 
-        <div class="relative max-w-xs mx-auto mt-4 w-[320px]">
-          <div class="bg-gray-900 text-white p-2 rounded-md text-sm">
-            <div class="flex justify-between items-center mb-2">
-              <button class="code bg-gray-800 hover:bg-gray-700 text-gray-300 px-3 py-1 rounded-md" data-clipboard-target="#code">
-                Copy
+          <div class="relative w-full text-left mt-4 group">
+            <div class="bg-black/50 border border-white/10 rounded-xl p-4 font-mono text-sm text-gray-400 break-all relative group-hover:border-brand-primary/50 transition-colors">
+              {refreshToken}
+              
+              <button class="code absolute top-2 right-2 p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors" data-clipboard-text={refreshToken}>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
               </button>
-            </div>
-            <div class="overflow-x-auto">
-              <pre id="code" class="text-gray-300 text-sm">
-<code>{refreshToken}</code>
-              </pre>
             </div>
           </div>
         </div>
@@ -57,26 +66,21 @@
           new ClipboardJS('.code');
         </script>
 
-        <button
-          class="relative inline-flex items-center px-6 py-3 rounded-md font-bold text-white select-none"
-          on:click={signOut}
-        >
-          <span class="absolute inset-0 -translate-y-[2px] rounded-md bg-[#303784]"></span>
-          <span class="absolute inset-0 rounded-md bg-[#5865f2]"></span>
-          <span class="relative">Sign out</span>
-        </button>
+        <Button variant="outline" class="w-full" onclick={signOut}>
+          Sign out
+        </Button>
 
       {:else}
-        <h1 class="text-white mb-4 text-center">
-          twin you are NOT signed in 🤣🤣🤣🤣🤣🤣🤣🤣🤣
-        </h1>
-        <button
-          class="relative inline-flex items-center px-6 py-3 rounded-md font-bold text-white select-none"
-          on:click={homePage}
-        >
-          <span class="absolute inset-0 -translate-y-[2px] rounded-md bg-[#303784]"></span>
-          <span class="absolute inset-0 rounded-md bg-[#5865f2]"></span>
-          <span class="relative">Go to Home Page</span>
-        </button>
+        <div class="space-y-4">
+             <div class="text-6xl">🤣🤣</div>
+             <h1 class="text-xl font-bold text-white">
+              Twin you are <span class="text-red-500">NOT</span> signed in
+            </h1>
+        </div>
+        
+        <Button variant="primary" class="w-full" onclick={homePage}>
+          Go to Home Page
+        </Button>
       {/if}
+  </Card>
 </PageTemplate>
